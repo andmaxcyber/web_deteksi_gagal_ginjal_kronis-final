@@ -1,0 +1,2 @@
+# Tempatkan file .pkl hasil pelatihan (XGBoost & Random Forest) di sini.
+# Folder ini akan dipindai oleh backend untuk pemuatan model.
