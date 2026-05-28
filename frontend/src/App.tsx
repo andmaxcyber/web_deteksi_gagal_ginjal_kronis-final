@@ -733,7 +733,7 @@ export default function App() {
                     </label>
                     <input 
                       type="number" step="0.01" required placeholder="0.85"
-                      className="h-16 bg-emerald-50/30 border border-emerald-100/50 rounded-2xl px-5 font-mono text-xl font-bold text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 focus:bg-white shadow-inner transition-all placeholder:text-emerald-300 relative z-10"
+                      className="h-16 bg-slate-50/30 border border-slate-200/50 rounded-2xl px-5 font-mono text-xl font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500/40 focus:border-slate-500 focus:bg-white shadow-inner transition-all placeholder:text-slate-300 relative z-10"
                       value={formData.creatinine} onChange={e => setFormData({...formData, creatinine: e.target.value})}
                     />
                   </div>
