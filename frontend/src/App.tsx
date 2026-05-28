@@ -122,7 +122,22 @@ export default function App() {
   });
   const [prediction, setPrediction] = useState<PredictionData | null>(null);
 
-  const response = await fetch('https://api-deteksi-pgk.onrender.com/api/predict', {
+  const handlePredict = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      // Mengarah ke server Render (Backend yang sudah Live)
+      const response = await fetch('https://api-deteksi-pgk.onrender.com/api/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Server merespons dengan error');
+      }
+
       const data = await response.json();
       
       const histData: PredictionData = {
@@ -140,8 +155,8 @@ export default function App() {
       setView('result');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
-      console.error("Gagal terhubung ke server backend Python:", err);
-      alert("Gagal terhubung! Pastikan server backend Python (app.py) sudah dijalankan.");
+      console.error("Gagal terhubung ke server:", err);
+      alert("Gagal terhubung! Pastikan backend di Render sudah aktif.");
     } finally {
       setLoading(false);
     }

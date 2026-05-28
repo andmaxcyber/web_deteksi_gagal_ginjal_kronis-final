@@ -46,6 +46,7 @@ def predict():
 
         # =====================================================================
         # PROSES ENCODING: Menerjemahkan angka riil menjadi Kategori (1, 2, 3, 4)
+        # Menyesuaikan matriks bobot data latih
         # =====================================================================
 
         # 1. Encoding Hb (Hemoglobin) -> Normal=1, Ringan=2, Sedang=3, Berat=4
@@ -100,48 +101,77 @@ def predict():
 
         # =====================================================================
         # ARTIKULASI MATRIKS FITUR INPUT MODEL (Tepat 8 Kolom Kategori)
+        # Urutan: Hb, Chol, BMI, Ureum, Creat, GDP, G2H, BP
         # =====================================================================
         features = np.array([[hb_enc, chol_enc, bmi_enc, ureum_enc, creat_enc, gdp_enc, g2h_enc, bp_enc]])
 
         # 3. Prediksi menggunakan Model Asli (Ensemble)
         if rf_model and xgb_model:
+            # Mengambil probabilitas dari kelas target indeks ke-[1]
             rf_prob = rf_model.predict_proba(features)[0][1]
             xgb_prob = xgb_model.predict_proba(features)[0][1]
             
+            # Penggabungan keputusan komputasi via Soft Voting Ensemble
             ensemble_prob = (rf_prob + xgb_prob) / 2
             risk_score = ensemble_prob * 100
         else:
-            raise Exception("Model Machine Learning belum siap.")
+            raise Exception("Model Machine Learning belum siap atau tidak ditemukan di server.")
 
-        # --- PERBAIKAN LOGIKA: Bulatkan skor SEBELUM pengecekan risiko ---
-        risk_score = round(risk_score, 1)
+        # Ambang batas fungsional penentuan keputusan klaster (50%)
         is_high_risk = risk_score >= 50
 
-        # --- LOGIKA REKOMENDASI KLINIS DINAMIS ---
+        # --- LOGIKA REKOMENDASI KLINIS DINAMIS (Berdasarkan Angka Asli) ---
         rekomendasi = []
-        if hb_enc > 1: rekomendasi.append("Kadar Hemoglobin (Hb) rendah.")
-        if chol_enc > 1: rekomendasi.append("Kadar Kolesterol melebihi batas sehat.")
-        if bmi_enc > 1: rekomendasi.append("Indeks Massa Tubuh (BMI) menunjukkan berat badan berlebih.")
-        if bp_enc > 1: rekomendasi.append("Tekanan darah Anda tinggi (indikasi Hipertensi).")
-        if ureum_enc > 1: rekomendasi.append("Kadar Ureum di atas normal.")
-        if creat_enc > 1: rekomendasi.append("Kadar Kreatinin Anda tinggi.")
-        else: rekomendasi.append("Fungsi penyaringan utama ginjal (Kreatinin) Anda normal.")
-        if gdp_enc > 1 or g2h_enc > 1: rekomendasi.append("Indikasi prediabetes/diabetes.")
-        rekomendasi.append("Penting: Segera konsultasikan dengan dokter.")
 
+        # 1. Cek Hemoglobin (Anemia)
+        if hb_enc > 1: 
+            rekomendasi.append("Kadar Hemoglobin (Hb) rendah menunjukkan indikasi anemia yang sering menyertai penurunan fungsi ginjal. Perbanyak konsumsi makanan kaya zat besi seperti sayuran hijau, hati, atau daging merah tanpa lemak.")
+        
+        # 2. Cek Kolesterol
+        if chol_enc > 1:
+            rekomendasi.append("Kadar Kolesterol Anda melebihi batas sehat. Hindari gorengan, santan, dan lemak jenuh karena penumpukan plak kolesterol dapat memperburuk aliran darah ke ginjal.")
+
+        # 3. Cek Berat Badan (BMI)
+        if bmi_enc > 1: 
+            rekomendasi.append("Indeks Massa Tubuh (BMI) menunjukkan berat badan berlebih. Lakukan aktivitas fisik minimal 30 menit sehari untuk memperbaiki metabolisme tubuh dan meringankan kerja ginjal.")
+            
+        # 4. Cek Tekanan Darah (Hipertensi)
+        if bp_enc > 1: 
+            rekomendasi.append("Tekanan darah Anda tinggi (indikasi Hipertensi). Segera kurangi makanan asin/tinggi natrium dan hindari stres, karena tekanan darah tinggi secara konsisten akan merusak pembuluh darah ginjal.")
+
+        # 5. Cek Kadar Ureum
+        if ureum_enc > 1: 
+            rekomendasi.append("Kadar Ureum di atas normal menandakan adanya penumpukan limbah nitrogen dalam darah. Jaga asupan air putih yang cukup dan hindari diet protein berlebihan tanpa pengawasan dokter.")
+
+        # 6. Cek Kadar Kreatinin
+        if creat_enc > 1: 
+            rekomendasi.append("Kadar Kreatinin Anda tinggi. Ini adalah indikator utama penurunan fungsi saringan ginjal. Hindari konsumsi obat pereda nyeri, suplemen sembarangan, atau jamu-jamuan tanpa resep dokter.")
+        else:
+            rekomendasi.append("Fungsi penyaringan utama ginjal (Kreatinin) Anda masih terpantau dalam batas wajar. Pertahankan kebiasaan minum air putih yang baik.")
+
+        # 7. Cek Gula Darah Puasa (GDP) & Gula 2 Jam (G2H)
+        if gdp_enc > 1 or g2h_enc > 1: 
+            rekomendasi.append("Kadar glukosa darah Anda menunjukkan indikasi prediabetes/diabetes. Diabetes melitus yang tidak terkontrol adalah faktor pemicu kerusakan mikrovaskular nefron ginjal secara permanen (Nefropati Diabetik).")
+
+        # Menambahkan anjuran umum di poin paling bawah
+        rekomendasi.append("Penting: Segera konsultasikan hasil prediksi awal ini dengan dokter spesialis penyakit dalam atau nefrologi untuk evaluasi fungsi ginjal secara menyeluruh.")
+
+        # Penjelasan medis otomatis (Kesimpulan Singkat)
         explanation = (
-            f"Berdasarkan analisis Hybrid Ensemble Machine Learning, Pasien {name} terdeteksi memiliki Risiko Tinggi gagal ginjal kronis."
+            f"Berdasarkan analisis Hybrid Ensemble Machine Learning (XGBoost + Random Forest), Pasien {name} terdeteksi memiliki Risiko Tinggi gagal ginjal kronis. "
+            "Beberapa indikator kunci terpantau di luar batas sehat dan memerlukan intervensi medis segera."
             if is_high_risk else 
-            f"Hasil analisis sistem menunjukkan Pasien {name} berada pada Risiko Rendah."
+            f"Hasil analisis sistem menunjukkan Pasien {name} berada pada Risiko Rendah. "
+            "Fungsi filtrasi ginjal dan parameter metabolisme tubuh Anda sebagian besar masih dalam ambang batas sehat. Tetap pertahankan pola hidup sehat untuk mencegah kerusakan di masa depan."
         )
 
+        # Simulasi jeda pemrosesan komputasi model
         time.sleep(0.8)
 
-        # Kirim response tanpa pembulatan ganda lagi
         return jsonify({
             "status": "success",
             "prediction": "Risiko Tinggi" if is_high_risk else "Risiko Rendah",
-            "confidence": risk_score,
+            "confidence": round(risk_score, 1),
             "explanation": explanation,
             "recommendations": rekomendasi
         })
@@ -152,4 +182,5 @@ def predict():
         return jsonify({"status": "error", "message": str(e)}), 400
 
 if __name__ == '__main__':
+    print("Backend Flask Rebalytix AI berjalan di http://127.0.0.1:5000")
     app.run(debug=True, port=5000)
