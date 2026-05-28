@@ -728,7 +728,7 @@ export default function App() {
                   <div className="bg-white/70 backdrop-blur-xl p-8 rounded-[32px] border border-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-emerald-100 transition-all group flex flex-col gap-4 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
                     <label className="text-base font-black text-slate-800 flex items-center justify-between relative z-10">
-                      <span className="flex items-center gap-3"><Stethoscope size={20} className="text-emerald-600" /> Kreatinin (Creat)</span>
+                      <span className="flex items-center gap-3"><Stethoscope size={20} className="text-amber-500" /> Kreatinin (Creat)</span>
                       <span className="text-slate-400 text-xs tracking-widest uppercase">mg/dL</span>
                     </label>
                     <input 
