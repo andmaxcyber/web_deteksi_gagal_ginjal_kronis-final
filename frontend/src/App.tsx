@@ -1210,7 +1210,7 @@ export default function App() {
             </div>
             <span className="font-display font-black text-slate-800 text-lg">Rebalytix AI</span>
           </div>
-          <p className="text-slate-500 text-sm font-semibold">© 2026 Tugas Akhir Skripsi - Identifikasi Gagal Ginjal Kronis</p>
+          <p className="text-slate-500 text-sm font-semibold">© 2026 Rebalytix AI - Identifikasi Risiko Penyakit Ginjal Kronis</p>
         </div>
       </footer>
     </div>
