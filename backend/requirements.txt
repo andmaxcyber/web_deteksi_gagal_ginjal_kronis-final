@@ -4,4 +4,4 @@ gunicorn
 numpy
 joblib
 scikit-learn
-xgboostv
+xgboostgit add .
