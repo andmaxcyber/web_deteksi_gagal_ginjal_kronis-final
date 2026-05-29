@@ -189,7 +189,7 @@ export default function App() {
     
     try {
       // Mengarah ke server Render (Backend yang sudah Live)
-      const response = await fetch('https://api-deteksi-pgk.onrender.com/api/predict', {
+      const response = await fetch('https://web-deteksi-gagal-ginjal-kronis-final.onrender.com/api/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
