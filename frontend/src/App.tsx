@@ -94,7 +94,65 @@ const FeatureCard = ({ icon: Icon, title, description, color }: any) => (
     <p className="text-slate-500 text-sm leading-relaxed font-medium">{description}</p>
   </div>
 );
+// Helper penentu status (Normal, Warning, Danger) untuk Frontend
+const getIndicatorStatus = (label: string, value: number) => {
+  const val = Number(value);
+  const lbl = label.toLowerCase();
+  
+  if (lbl.includes('hb') || lbl.includes('hemoglobin')) {
+    if (val >= 12 && val <= 17) return 'normal';
+    return 'danger';
+  }
+  if (lbl.includes('kolesterol') || lbl.includes('chol')) {
+    if (val < 200) return 'normal';
+    if (val >= 200 && val <= 239) return 'warning';
+    return 'danger';
+  }
+  if (lbl.includes('bmi') || lbl.includes('body mass index')) {
+    if (val >= 18.5 && val <= 24.9) return 'normal';
+    return 'danger'; // < 18.5 atau > 24.9 langsung merah
+  }
+  if (lbl.includes('bp') || lbl.includes('tekanan darah')) {
+    if (val >= 90 && val <= 120) return 'normal';
+    if (val > 120 && val <= 139) return 'warning';
+    return 'danger'; // < 90 langsung merah (Hipotensi)
+  }
+  if (lbl.includes('ureum')) {
+    if (val >= 15 && val <= 50) return 'normal';
+    return 'danger'; // < 15 atau > 50 merah
+  }
+  if (lbl.includes('kreatinin')) {
+    if (val >= 0.6 && val <= 1.2) return 'normal';
+    return 'danger'; // < 0.6 atau > 1.2 merah
+  }
+  if (lbl.includes('puasa')) {
+    if (val >= 70 && val <= 100) return 'normal';
+    if (val > 100 && val <= 125) return 'warning';
+    return 'danger'; // < 70 (Hipoglikemia) merah
+  }
+  if (lbl.includes('2 jam') || lbl.includes('g2h')) {
+    if (val < 140) return 'normal';
+    if (val >= 140 && val <= 199) return 'warning';
+    return 'danger';
+  }
+  return 'normal';
+};
 
+// Helper warna Tailwind
+const getStatusColors = (status: string) => {
+  if (status === 'warning') return {
+    bg: 'bg-amber-50/50 border-amber-200/50',
+    text: 'text-amber-600'
+  };
+  if (status === 'danger') return {
+    bg: 'bg-rose-50/50 border-rose-200/50',
+    text: 'text-rose-600'
+  };
+  return {
+    bg: 'bg-emerald-50/50 border-emerald-200/50',
+    text: 'text-emerald-600'
+  };
+};
 export default function App() {
   const [view, setView] = useState<'home' | 'form' | 'result' | 'history' | 'education' | 'about'>('home');
   const [loading, setLoading] = useState(false);
@@ -854,32 +912,40 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* 1.5. KOTAK VISUALISASI PARAMETER */}
+                {/* KOTAK VISUALISASI PARAMETER (PETA INDIKATOR) */}
                 <div className="bg-white/80 backdrop-blur-2xl p-8 sm:p-12 rounded-[48px] shadow-[0_20px_60px_rgba(0,0,0,0.05)] border border-white space-y-8">
                   <h4 className="text-2xl font-display font-black text-slate-900 flex items-center gap-4 mb-2">
-                    <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center shadow-inner">
+                    {/* Ikon sudah diubah jadi hijau senada */}
+                    <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-inner">
                       <Activity size={24} />
                     </div>
                     Peta Indikator Klinis
                   </h4>
+                  
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    {getParamsList(prediction.formData).map((item, idx) => (
-                      <div key={idx} className={cn(
-                        "p-5 rounded-[24px] flex justify-between items-center border transition-all hover:-translate-y-1 hover:shadow-md",
-                        item.normal ? "bg-emerald-50/50 border-emerald-200/50" : "bg-rose-50/50 border-rose-200/50"
-                      )}>
-                        <div>
-                          <p className="font-bold text-slate-800 text-[15px]">{item.label}</p>
-                          <p className="text-[11px] text-slate-500 mt-1 font-bold tracking-widest uppercase">Target: {item.ideal} {item.unit}</p>
-                        </div>
-                        <div className={cn(
-                          "font-mono font-black text-xl text-right",
-                          item.normal ? "text-emerald-600" : "text-rose-600"
+                    {getParamsList(prediction.formData).map((item, idx) => {
+                      // Panggil fungsi detektor status yang baru
+                      const status = getIndicatorStatus(item.label, Number(item.val));
+                      const colors = getStatusColors(status);
+                      
+                      return (
+                        <div key={idx} className={cn(
+                          "p-5 rounded-[24px] flex justify-between items-center border transition-all hover:-translate-y-1 hover:shadow-md",
+                          colors.bg
                         )}>
-                          {item.val} <span className="text-xs font-bold">{item.unit}</span>
+                          <div>
+                            <p className="font-bold text-slate-800 text-[15px]">{item.label}</p>
+                            <p className="text-[11px] text-slate-500 mt-1 font-bold tracking-widest uppercase">Target: {item.ideal} {item.unit}</p>
+                          </div>
+                          <div className={cn(
+                            "font-mono font-black text-xl text-right",
+                            colors.text
+                          )}>
+                            {item.val} <span className="text-xs font-bold">{item.unit}</span>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 

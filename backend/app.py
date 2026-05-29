@@ -120,51 +120,63 @@ def predict():
         # Ambang batas fungsional penentuan keputusan klaster (50%)
         is_high_risk = risk_score >= 50
 
-        # --- LOGIKA REKOMENDASI KLINIS DINAMIS (Berdasarkan Angka Asli) ---
+       # =====================================================================
+        # LOGIKA REKOMENDASI KLINIS DINAMIS (Deteksi Kurang / Lebih)
+        # =====================================================================
         rekomendasi = []
 
-        # 1. Cek Hemoglobin (Anemia)
-        if hb_enc > 1: 
-            rekomendasi.append("Kadar Hemoglobin (Hb) rendah menunjukkan indikasi anemia yang sering menyertai penurunan fungsi ginjal. Perbanyak konsumsi makanan kaya zat besi seperti sayuran hijau, hati, atau daging merah tanpa lemak.")
-        
+        # 1. Cek Hemoglobin (Batas Bawah & Atas)
+        hb_min = 13 if gender == 'Laki-laki' else 12
+        hb_max = 17 if gender == 'Laki-laki' else 15
+        if hb < hb_min: 
+            rekomendasi.append(f"⚠️ Waspada Anemia: Kadar Hemoglobin ({hb} g/dL) di bawah normal. Perbanyak konsumsi makanan kaya zat besi seperti sayuran hijau, hati, daging merah, dan Vitamin C untuk membantu pembentukan sel darah.")
+        elif hb > hb_max:
+            rekomendasi.append(f"⚠️ Kadar Hemoglobin ({hb} g/dL) terpantau di atas normal. Pastikan tubuh tetap terhidrasi dengan baik dan hindari dehidrasi.")
+
         # 2. Cek Kolesterol
-        if chol_enc > 1:
-            rekomendasi.append("Kadar Kolesterol Anda melebihi batas sehat. Hindari gorengan, santan, dan lemak jenuh karena penumpukan plak kolesterol dapat memperburuk aliran darah ke ginjal.")
+        if cholesterol >= 200:
+            rekomendasi.append(f"⚠️ Kolesterol Tinggi: Kadar Anda ({cholesterol} mg/dL) melebihi batas sehat. Hindari gorengan dan lemak jenuh karena plak kolesterol memperburuk aliran darah ke ginjal.")
 
         # 3. Cek Berat Badan (BMI)
-        if bmi_enc > 1: 
-            rekomendasi.append("Indeks Massa Tubuh (BMI) menunjukkan berat badan berlebih. Lakukan aktivitas fisik minimal 30 menit sehari untuk memperbaiki metabolisme tubuh dan meringankan kerja ginjal.")
+        if bmi < 18.5: 
+            rekomendasi.append(f"⚠️ Waspada Underweight: Indeks Massa Tubuh ({bmi}) di bawah normal. Tingkatkan asupan kalori bernutrisi tinggi dan protein untuk mencapai berat badan ideal yang mendukung metabolisme tubuh.")
+        elif bmi >= 25:
+            rekomendasi.append(f"⚠️ Overweight/Obesitas: Indeks Massa Tubuh ({bmi}) berlebih. Lakukan aktivitas fisik rutin minimal 30 menit sehari untuk meringankan kerja ginjal.")
             
-        # 4. Cek Tekanan Darah (Hipertensi)
-        if bp_enc > 1: 
-            rekomendasi.append("Tekanan darah Anda tinggi (indikasi Hipertensi). Segera kurangi makanan asin/tinggi natrium dan hindari stres, karena tekanan darah tinggi secara konsisten akan merusak pembuluh darah ginjal.")
+        # 4. Cek Tekanan Darah
+        if bp < 90:
+            rekomendasi.append(f"⚠️ Waspada Hipotensi: Tekanan darah Anda ({bp} mmHg) terlalu rendah. Pastikan asupan cairan harian cukup dan jangan mengubah posisi tubuh secara mendadak.")
+        elif bp > 120: 
+            rekomendasi.append(f"⚠️ Peringatan Hipertensi: Tekanan darah ({bp} mmHg) di atas batas wajar. Segera kurangi makanan tinggi garam/natrium dan kelola stres.")
 
         # 5. Cek Kadar Ureum
-        if ureum_enc > 1: 
-            rekomendasi.append("Kadar Ureum di atas normal menandakan adanya penumpukan limbah nitrogen dalam darah. Jaga asupan air putih yang cukup dan hindari diet protein berlebihan tanpa pengawasan dokter.")
+        if ureum < 15:
+            rekomendasi.append(f"⚠️ Ureum Rendah: Kadar ({ureum} mg/dL) di bawah target. Ini biasanya terkait dengan diet yang terlalu rendah protein. Pastikan asupan protein sehat harian Anda tercukupi.")
+        elif ureum > 50: 
+            rekomendasi.append(f"⚠️ Ureum Tinggi: Terdapat penumpukan limbah nitrogen. Jaga asupan air putih yang cukup dan batasi protein berlebih tanpa pengawasan dokter.")
 
         # 6. Cek Kadar Kreatinin
-        if creat_enc > 1: 
-            rekomendasi.append("Kadar Kreatinin Anda tinggi. Ini adalah indikator utama penurunan fungsi saringan ginjal. Hindari konsumsi obat pereda nyeri, suplemen sembarangan, atau jamu-jamuan tanpa resep dokter.")
+        if creatinine < 0.6:
+            rekomendasi.append(f"⚠️ Kreatinin Rendah: Angka ({creatinine} mg/dL) di bawah normal. Hal ini sering disebabkan oleh massa otot yang rendah atau malnutrisi. Pertimbangkan olahraga ringan untuk otot dan nutrisi seimbang.")
+        elif creatinine > 1.2: 
+            rekomendasi.append(f"⚠️ Peringatan Kritis: Kreatinin ({creatinine} mg/dL) tinggi. Ini adalah indikator utama penurunan fungsi saringan ginjal. Hindari jamu-jamuan atau obat pereda nyeri tanpa resep dokter.")
         else:
-            rekomendasi.append("Fungsi penyaringan utama ginjal (Kreatinin) Anda masih terpantau dalam batas wajar. Pertahankan kebiasaan minum air putih yang baik.")
+            # Pujian ginjal sehat hanya muncul jika Ureum & Kreatinin normal, DAN skor AI rendah
+            if not is_high_risk and (15 <= ureum <= 50):
+                rekomendasi.append("✅ Fungsi penyaringan utama ginjal (Kreatinin & Ureum) Anda terpantau dalam batas wajar. Pertahankan kebiasaan minum air putih yang baik.")
 
-        # 7. Cek Gula Darah Puasa (GDP) & Gula 2 Jam (G2H)
-        if gdp_enc > 1 or g2h_enc > 1: 
-            rekomendasi.append("Kadar glukosa darah Anda menunjukkan indikasi prediabetes/diabetes. Diabetes melitus yang tidak terkontrol adalah faktor pemicu kerusakan mikrovaskular nefron ginjal secara permanen (Nefropati Diabetik).")
+        # 7. Cek Gula Darah Puasa (GDP)
+        if gdp < 70:
+            rekomendasi.append(f"⚠️ Waspada Hipoglikemia: Gula darah puasa ({gdp} mg/dL) sangat rendah/drop. Jangan melewatkan waktu makan dan segera konsumsi karbohidrat cepat serap jika merasa lemas.")
+        elif gdp > 100:
+            rekomendasi.append(f"⚠️ Indikasi Prediabetes/Diabetes: Gula darah puasa ({gdp} mg/dL) tinggi. Fluktuasi gula darah berlebih akan merusak pembuluh darah mikro di dalam ginjal.")
+
+        # 8. Cek Gula 2 Jam (G2H)
+        if g2h >= 140:
+            rekomendasi.append(f"⚠️ Toleransi Glukosa Terganggu: Gula 2 jam PP ({g2h} mg/dL) di atas batas normal. Batasi konsumsi gula tambahan dan makanan indeks glikemik tinggi.")
 
         # Menambahkan anjuran umum di poin paling bawah
-        rekomendasi.append("Penting: Segera konsultasikan hasil prediksi awal ini dengan dokter spesialis penyakit dalam atau nefrologi untuk evaluasi fungsi ginjal secara menyeluruh.")
-
-        # Penjelasan medis otomatis (Kesimpulan Singkat)
-        explanation = (
-            f"Berdasarkan analisis Hybrid Ensemble Machine Learning (XGBoost + Random Forest), Pasien {name} terdeteksi memiliki Risiko Tinggi gagal ginjal kronis. "
-            "Beberapa indikator kunci terpantau di luar batas sehat dan memerlukan intervensi medis segera."
-            if is_high_risk else 
-            f"Hasil analisis sistem menunjukkan Pasien {name} berada pada Risiko Rendah. "
-            "Fungsi filtrasi ginjal dan parameter metabolisme tubuh Anda sebagian besar masih dalam ambang batas sehat. Tetap pertahankan pola hidup sehat untuk mencegah kerusakan di masa depan."
-        )
-
+        rekomendasi.append("Penting: Segera konsultasikan hasil skrining AI ini dengan dokter spesialis untuk evaluasi kondisi medis Anda secara sah dan menyeluruh.")
         # Simulasi jeda pemrosesan komputasi model
         time.sleep(0.8)
 
