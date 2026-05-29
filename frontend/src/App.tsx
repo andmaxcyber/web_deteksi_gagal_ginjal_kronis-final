@@ -53,10 +53,10 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
   <nav className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-xl border-b border-white/50 shadow-sm print:hidden transition-all duration-300">
     <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navTo('home')}>
-        {/* Logo Gambar Ginjal */}
+        {/* Logo Rebalytix */}
         <img 
           src="/favicon.png" 
-          alt="Logo Prediksi PGK" 
+          alt="Logo Rebalytix" 
           className="w-11 h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" 
           />
         <div>
