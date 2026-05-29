@@ -1008,7 +1008,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* --- TEMPLATE PDF RESMI 8 PARAMETER (DIPERTAHANKAN) --- */}
+{/* --- TEMPLATE PDF RESMI 8 PARAMETER (DIPERTAHANKAN) --- */}
               <div className="hidden print:block text-black bg-white font-sans w-full max-w-4xl mx-auto p-4">
                 
                 <div className="border-b-4 border-slate-800 pb-4 mb-8 flex justify-between items-end">
@@ -1067,7 +1067,7 @@ export default function App() {
                         <td className="border border-slate-300 p-3 font-mono font-bold">{prediction.formData?.hb || '-'}</td>
                         <td className="border border-slate-300 p-3">g/dL</td>
                         <td className="border border-slate-300 p-3 font-bold">
-                          { (prediction.formData?.gender === 'Laki-laki' && Number(prediction.formData?.hb) >= 13) || (prediction.formData?.gender === 'Perempuan' && Number(prediction.formData?.hb) >= 12) ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
+                          { (prediction.formData?.gender === 'Laki-laki' && Number(prediction.formData?.hb) >= 13 && Number(prediction.formData?.hb) <= 17) || (prediction.formData?.gender === 'Perempuan' && Number(prediction.formData?.hb) >= 12 && Number(prediction.formData?.hb) <= 15) ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
                         </td>
                       </tr>
                       <tr className="bg-slate-50">
@@ -1075,7 +1075,7 @@ export default function App() {
                         <td className="border border-slate-300 p-3 font-mono font-bold">{prediction.formData?.cholesterol || '-'}</td>
                         <td className="border border-slate-300 p-3">mg/dL</td>
                         <td className="border border-slate-300 p-3 font-bold">
-                          { Number(prediction.formData?.cholesterol) <= 200 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
+                          { Number(prediction.formData?.cholesterol) < 200 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
                         </td>
                       </tr>
                       <tr>
@@ -1083,7 +1083,7 @@ export default function App() {
                         <td className="border border-slate-300 p-3 font-mono font-bold">{prediction.formData?.bmi || '-'}</td>
                         <td className="border border-slate-300 p-3">kg/m²</td>
                         <td className="border border-slate-300 p-3 font-bold">
-                          { Number(prediction.formData?.bmi) <= 25 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
+                          { Number(prediction.formData?.bmi) >= 18.5 && Number(prediction.formData?.bmi) < 25 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
                         </td>
                       </tr>
                       <tr className="bg-slate-50">
@@ -1091,7 +1091,7 @@ export default function App() {
                         <td className="border border-slate-300 p-3 font-mono font-bold">{prediction.formData?.bp || '-'}</td>
                         <td className="border border-slate-300 p-3">mmHg</td>
                         <td className="border border-slate-300 p-3 font-bold">
-                          { Number(prediction.formData?.bp) < 130 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
+                          { Number(prediction.formData?.bp) >= 90 && Number(prediction.formData?.bp) <= 120 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
                         </td>
                       </tr>
                       <tr>
@@ -1099,7 +1099,7 @@ export default function App() {
                         <td className="border border-slate-300 p-3 font-mono font-bold">{prediction.formData?.ureum || '-'}</td>
                         <td className="border border-slate-300 p-3">mg/dL</td>
                         <td className="border border-slate-300 p-3 font-bold">
-                          { Number(prediction.formData?.ureum) <= 50 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
+                          { Number(prediction.formData?.ureum) >= 15 && Number(prediction.formData?.ureum) <= 50 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
                         </td>
                       </tr>
                       <tr className="bg-slate-50">
@@ -1107,7 +1107,7 @@ export default function App() {
                         <td className="border border-slate-300 p-3 font-mono font-bold">{prediction.formData?.creatinine || '-'}</td>
                         <td className="border border-slate-300 p-3">mg/dL</td>
                         <td className="border border-slate-300 p-3 font-bold">
-                          { Number(prediction.formData?.creatinine) <= 1.2 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
+                          { Number(prediction.formData?.creatinine) >= 0.6 && Number(prediction.formData?.creatinine) <= 1.2 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
                         </td>
                       </tr>
                       <tr>
@@ -1115,7 +1115,7 @@ export default function App() {
                         <td className="border border-slate-300 p-3 font-mono font-bold">{prediction.formData?.gdp || '-'}</td>
                         <td className="border border-slate-300 p-3">mg/dL</td>
                         <td className="border border-slate-300 p-3 font-bold">
-                          { Number(prediction.formData?.gdp) <= 125 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
+                          { Number(prediction.formData?.gdp) >= 70 && Number(prediction.formData?.gdp) <= 100 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
                         </td>
                       </tr>
                       <tr className="bg-slate-50">
@@ -1123,7 +1123,7 @@ export default function App() {
                         <td className="border border-slate-300 p-3 font-mono font-bold">{prediction.formData?.g2h || '-'}</td>
                         <td className="border border-slate-300 p-3">mg/dL</td>
                         <td className="border border-slate-300 p-3 font-bold">
-                          { Number(prediction.formData?.g2h) <= 140 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
+                          { Number(prediction.formData?.g2h) < 140 ? <span className="text-emerald-600">Normal</span> : <span className="text-pink-600">Di luar rentang</span> }
                         </td>
                       </tr>
                     </tbody>
@@ -1163,7 +1163,7 @@ export default function App() {
               </div>
             </motion.div>
           )}
-          
+                    
           {view === 'history' && (
             <motion.div 
               key="history"
