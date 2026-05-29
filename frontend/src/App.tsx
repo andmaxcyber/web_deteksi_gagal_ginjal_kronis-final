@@ -53,9 +53,12 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
   <nav className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-xl border-b border-white/50 shadow-sm print:hidden transition-all duration-300">
     <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navTo('home')}>
-        <div className="w-11 h-11 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-emerald-600/30 group-hover:scale-105 transition-transform duration-300">
-          <Activity size={24} />
-        </div>
+        <!-- Logo Gambar Ginjal -->
+        <img 
+          src="/favicon.png" 
+          alt="Logo Prediksi PGK" 
+          className="w-11 h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" 
+          />
         <div>
           <h1 className="font-display font-black text-xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 to-teal-600">Rebalytix AI</h1>
           <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">Med-Tech Skrining</p>
