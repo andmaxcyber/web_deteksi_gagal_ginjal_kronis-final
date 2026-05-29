@@ -1131,22 +1131,28 @@ export default function App() {
                 </div>
 
                 <div className="mb-12">
-                  <h3 className="text-lg font-bold bg-slate-100 p-2 mb-3 border-l-4 border-slate-800 uppercase text-sm tracking-wider">Rekomendasi Medis Berbasis AI</h3>
-                  <div className="pl-4">
-                    {prediction.recommendations && prediction.recommendations.length > 0 ? (
-                      prediction.recommendations.map((rec, index) => (
-                        <p key={index} className="mb-2 text-sm leading-relaxed text-justify">
-                          <span className="font-bold mr-2">{index + 1}.</span> {rec}
-                        </p>
-                      ))
-                    ) : (
-                      <>
-                        <p className="mb-2 text-sm leading-relaxed"><span className="font-bold mr-2">1.</span>Konsultasikan hasil ini dengan dokter spesialis nefrologi terdekat.</p>
-                        <p className="mb-2 text-sm leading-relaxed"><span className="font-bold mr-2">2.</span>Jaga asupan cairan dan kurangi konsumsi garam berlebih setiap hari.</p>
-                      </>
-                    )}
-                  </div>
-                </div>
+  <h3 className="text-lg font-bold bg-slate-100 p-2 mb-3 border-l-4 border-slate-800 uppercase text-sm tracking-wider">
+    Rekomendasi Medis Berbasis AI
+  </h3>
+  <div className="pl-4">
+    {prediction.recommendations && prediction.recommendations.length > 0 ? (
+      prediction.recommendations.map((rec, index) => (
+        <p key={index} className="mb-2 text-sm leading-relaxed text-justify break-inside-avoid">
+          <span className="font-bold mr-2">{index + 1}.</span> {rec}
+        </p>
+      ))
+    ) : (
+      <>
+        <p className="mb-2 text-sm leading-relaxed break-inside-avoid">
+          <span className="font-bold mr-2">1.</span>Konsultasikan hasil ini dengan dokter spesialis nefrologi terdekat.
+        </p>
+        <p className="mb-2 text-sm leading-relaxed break-inside-avoid">
+          <span className="font-bold mr-2">2.</span>Jaga asupan cairan dan kurangi konsumsi garam berlebih setiap hari.
+        </p>
+      </>
+    )}
+  </div>
+</div>
 
                 <div className="border-t-2 border-slate-300 pt-4 text-xs text-slate-500 flex justify-between mt-auto">
                   <div>
