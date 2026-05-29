@@ -1085,7 +1085,7 @@ export default function App() {
                 <div className="border-t-2 border-slate-300 pt-4 text-xs text-slate-500 flex justify-between mt-auto">
                   <div>
                     <p className="font-bold text-slate-800">ID Dokumen: REB-{prediction.id || Date.now()}</p>
-                    <p>Disclaimer: Laporan ini dihasilkan secara otomatis oleh sistem kecerdasan buatan untuk tujuan skrining.</p>
+                    <p>ⓘ Disclaimer: Laporan ini dihasilkan secara otomatis oleh sistem kecerdasan buatan untuk tujuan skrining.</p>
                     <p>Mohon jadikan laporan ini sebagai referensi untuk konsultasi dengan tenaga medis profesional.</p>
                   </div>
                   <div className="text-right">
