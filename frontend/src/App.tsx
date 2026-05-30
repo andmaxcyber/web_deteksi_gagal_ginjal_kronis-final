@@ -1165,6 +1165,7 @@ export default function App() {
                   <p className="font-bold mt-1 text-slate-800">Rebalytix AI v1.0</p>
                 </div>
               </div>
+            </div>
             </motion.div>
           )}
                     
