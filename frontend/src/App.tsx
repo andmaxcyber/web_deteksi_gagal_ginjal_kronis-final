@@ -801,7 +801,7 @@ export default function App() {
                       <span className="text-slate-400 text-xs tracking-widest uppercase">mg/dL</span>
                     </label>
                     <input 
-                      type="number" step="0.1" required placeholder="25.5"
+                      type="number" step="0.1" required placeholder="25,5"
                       className="h-16 bg-slate-50/50 border border-slate-200 rounded-2xl px-5 font-mono text-xl font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 focus:bg-white shadow-inner transition-all placeholder:text-slate-300"
                       value={formData.ureum} onChange={e => setFormData({...formData, ureum: e.target.value})}
                     />
@@ -814,7 +814,7 @@ export default function App() {
                       <span className="text-slate-400 text-xs tracking-widest uppercase">mg/dL</span>
                     </label>
                     <input 
-                      type="number" step="0.01" required placeholder="0.85"
+                      type="number" step="0.01" required placeholder="0,85"
                       className="h-16 bg-slate-50/30 border border-slate-200/50 rounded-2xl px-5 font-mono text-xl font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500/40 focus:border-slate-500 focus:bg-white shadow-inner transition-all placeholder:text-slate-300 relative z-10"
                       value={formData.creatinine} onChange={e => setFormData({...formData, creatinine: e.target.value})}
                     />
