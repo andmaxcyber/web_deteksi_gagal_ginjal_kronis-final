@@ -1001,7 +1001,21 @@ export default function App() {
                     <button onClick={handleNewPatient} className="bg-white text-slate-900 hover:bg-slate-100 h-16 flex-[1.5] justify-center rounded-[24px] text-base font-black shadow-lg transition-all cursor-pointer flex items-center gap-3">
                       <User size={20}/> Pasien Baru
                     </button>
-                    <button onClick={() => window.print()} className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white h-16 flex-[1.5] justify-center rounded-[24px] text-base font-black shadow-[0_10px_30px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.4)] hover:-translate-y-1 transition-all cursor-pointer flex items-center gap-3">
+                    <button 
+                      onClick={() => {
+                        const originalTitle = document.title;
+                                                
+                        const patientName = prediction.formData?.name || 'Pasien';
+                        const docId = prediction.id || Date.now();
+                                                
+                        document.title = `Laporan-Rebalytix-${patientName}-${docId}`;
+                                         
+                        window.print();
+                                           
+                        document.title = originalTitle;
+                      }} 
+                      className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white h-16 flex-[1.5] justify-center rounded-[24px] text-base font-black shadow-[0_10px_30px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.4)] hover:-translate-y-1 transition-all cursor-pointer flex items-center gap-3"
+                    >
                       Cetak Dokumen PDF
                     </button>
                   </div>
