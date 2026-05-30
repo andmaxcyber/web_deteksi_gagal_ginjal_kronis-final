@@ -189,10 +189,20 @@ export default function App() {
     
     try {
       // Mengarah ke server Render (Backend yang sudah Live)
+     const dataSiapKirim = {
+        hb: parseFloat(formData.hb?.toString().replace(/,/g, '.')) || 0,
+        cholesterol: parseFloat(formData.cholesterol?.toString().replace(/,/g, '.')) || 0,
+        bmi: parseFloat(formData.bmi?.toString().replace(/,/g, '.')) || 0,
+        bp: parseFloat(formData.bp?.toString().replace(/,/g, '.')) || 0,
+        ureum: parseFloat(formData.ureum?.toString().replace(/,/g, '.')) || 0,
+        creatinine: parseFloat(formData.creatinine?.toString().replace(/,/g, '.')) || 0,
+        gdp: parseFloat(formData.gdp?.toString().replace(/,/g, '.')) || 0,
+        g2h: parseFloat(formData.g2h?.toString().replace(/,/g, '.')) || 0,
+      };
       const response = await fetch('https://web-deteksi-gagal-ginjal-kronis-final.onrender.com/api/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(dataSiapKirim)
       });
 
       if (!response.ok) {
