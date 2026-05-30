@@ -1154,18 +1154,16 @@ export default function App() {
   </div>
 </div>
 
-                <div className="border-t-2 border-slate-300 pt-4 text-xs text-slate-500 flex justify-between mt-auto">
+              <div className="border-t-2 border-slate-300 pt-4 text-xs text-slate-500 flex justify-between mt-auto">
                   <div>
                     <p className="font-bold text-slate-800">ID Dokumen: REB-{prediction.id || Date.now()}</p>
                     <p>ⓘ Disclaimer: Laporan ini dihasilkan secara otomatis oleh sistem kecerdasan buatan untuk tujuan skrining.</p>
                     <p>Mohon jadikan laporan ini sebagai referensi untuk konsultasi dengan tenaga medis profesional.</p>
                   </div>
-                  <div className="text-right">
-                    <p>Dianalisis pada: {new Date().toLocaleString('id-ID')}</p>
-                    <p className="font-bold mt-1 text-slate-800">Rebalytix AI v1.0</p>
-                  </div>
+                <div className="text-right">
+                  <p>Dianalisis pada: {new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })} WIB</p>
+                  <p className="font-bold mt-1 text-slate-800">Rebalytix AI v1.0</p>
                 </div>
-
               </div>
             </motion.div>
           )}
