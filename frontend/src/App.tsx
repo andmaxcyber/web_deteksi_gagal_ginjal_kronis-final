@@ -1250,7 +1250,7 @@ export default function App() {
                       </div>
                       <div className="flex items-center justify-between md:justify-end gap-4 sm:gap-8 pt-4 md:pt-0 border-t md:border-none border-slate-200/50">
                          <div className="text-left md:text-right">
-                           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Skor Akurasi</p>
+                           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Skor Kepercayaan</p>
                            <p className="font-black text-3xl text-slate-800">{item.confidence}%</p>
                          </div>
                          <div className="flex items-center gap-3">
