@@ -723,51 +723,72 @@ export default function App() {
 
                 {/* Parameter Kiri */}
                 <div className="space-y-6">
+                  
+                  {/* 1. Hemoglobin */}
                   <div className="bg-white/70 backdrop-blur-xl p-8 rounded-[32px] border border-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-emerald-100 transition-all group flex flex-col gap-4">
                     <label className="text-base font-black text-slate-800 flex items-center justify-between">
                       <span className="flex items-center gap-3"><Droplets size={20} className="text-pink-500" /> Hemoglobin (Hb)</span>
                       <span className="text-slate-400 text-xs tracking-widest uppercase">g/dL</span>
                     </label>
                     <input 
-                      type="number" step="0.1" required placeholder="12.5"
+                      type="text" 
+                      inputMode="decimal" 
+                      required 
+                      placeholder="12,5"
                       className="h-16 bg-slate-50/50 border border-slate-200 rounded-2xl px-5 font-mono text-xl font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 focus:bg-white shadow-inner transition-all placeholder:text-slate-300"
-                      value={formData.hb} onChange={e => setFormData({...formData, hb: e.target.value})}
+                      value={formData.hb} 
+                      onChange={e => setFormData({...formData, hb: e.target.value})}
                     />
                   </div>
                   
+                  {/* 2. Kolesterol */}
                   <div className="bg-white/70 backdrop-blur-xl p-8 rounded-[32px] border border-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-emerald-100 transition-all group flex flex-col gap-4">
                     <label className="text-base font-black text-slate-800 flex items-center justify-between">
                       <span className="flex items-center gap-3"><Heart size={20} className="text-rose-500" /> Kolesterol (Chol)</span>
                       <span className="text-slate-400 text-xs tracking-widest uppercase">mg/dL</span>
                     </label>
                     <input 
-                      type="number" required placeholder="190"
+                      type="text" 
+                      inputMode="decimal" 
+                      required 
+                      placeholder="190,5"
                       className="h-16 bg-slate-50/50 border border-slate-200 rounded-2xl px-5 font-mono text-xl font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 focus:bg-white shadow-inner transition-all placeholder:text-slate-300"
-                      value={formData.cholesterol} onChange={e => setFormData({...formData, cholesterol: e.target.value})}
+                      value={formData.cholesterol} 
+                      onChange={e => setFormData({...formData, cholesterol: e.target.value})}
                     />
                   </div>
 
+                  {/* 3. BMI */}
                   <div className="bg-white/70 backdrop-blur-xl p-8 rounded-[32px] border border-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-emerald-100 transition-all group flex flex-col gap-4">
                     <label className="text-base font-black text-slate-800 flex items-center justify-between">
                       <span className="flex items-center gap-3"><Scale size={20} className="text-indigo-500" /> Body Mass Index (BMI)</span>
                       <span className="text-slate-400 text-xs tracking-widest uppercase">kg/m²</span>
                     </label>
                     <input 
-                      type="number" step="0.1" required placeholder="24.2"
+                      type="text" 
+                      inputMode="decimal" 
+                      required 
+                      placeholder="24,2"
                       className="h-16 bg-slate-50/50 border border-slate-200 rounded-2xl px-5 font-mono text-xl font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 focus:bg-white shadow-inner transition-all placeholder:text-slate-300"
-                      value={formData.bmi} onChange={e => setFormData({...formData, bmi: e.target.value})}
+                      value={formData.bmi} 
+                      onChange={e => setFormData({...formData, bmi: e.target.value})}
                     />
                   </div>
 
+                  {/* 4. Tekanan Darah (BP) */}
                   <div className="bg-white/70 backdrop-blur-xl p-8 rounded-[32px] border border-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-emerald-100 transition-all group flex flex-col gap-4">
                     <label className="text-base font-black text-slate-800 flex items-center justify-between">
                       <span className="flex items-center gap-3"><Activity size={20} className="text-orange-500" /> Tekanan Darah (BP)</span>
                       <span className="text-slate-400 text-xs tracking-widest uppercase">MMHG</span>
                     </label>
                     <input 
-                      type="number" required placeholder="120"
+                      type="text" 
+                      inputMode="decimal" 
+                      required 
+                      placeholder="120"
                       className="h-16 bg-slate-50/50 border border-slate-200 rounded-2xl px-5 font-mono text-xl font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 focus:bg-white shadow-inner transition-all placeholder:text-slate-300"
-                      value={formData.bp} onChange={e => setFormData({...formData, bp: e.target.value})}
+                      value={formData.bp} 
+                      onChange={e => setFormData({...formData, bp: e.target.value})}
                     />
                   </div>
                 </div>
