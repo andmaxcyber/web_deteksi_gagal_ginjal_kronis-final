@@ -1161,7 +1161,7 @@ export default function App() {
                     <p>Mohon jadikan laporan ini sebagai referensi untuk konsultasi dengan tenaga medis profesional.</p>
                   </div>
                   <div className="text-right">
-                    <p>Dicetak pada: {new Date().toLocaleString('id-ID')}</p>
+                    <p>Dianalisis pada: {new Date().toLocaleString('id-ID')}</p>
                     <p className="font-bold mt-1 text-slate-800">Rebalytix AI v1.0</p>
                   </div>
                 </div>
