@@ -898,7 +898,7 @@ export default function App() {
                     
                     <div className="pt-6 flex flex-col items-center justify-center gap-4 max-w-sm mx-auto">
                       <p className={cn("font-mono text-2xl font-black", prediction.prediction === "Risiko Tinggi" ? "text-rose-600" : "text-emerald-700")}>
-                        {prediction.confidence}% <span className="text-sm font-bold opacity-70 uppercase tracking-widest">Akurasi Engine</span>
+                        {prediction.confidence}% <span className="text-sm font-bold opacity-70 uppercase tracking-widest">Skor Risiko</span>
                       </p>
                       <div className={cn("h-3 w-full rounded-full overflow-hidden border shadow-inner", prediction.prediction === "Risiko Tinggi" ? "bg-rose-100 border-rose-200" : "bg-emerald-100 border-emerald-200")}>
                         <motion.div 
@@ -1038,7 +1038,7 @@ export default function App() {
                   <div>
                     <h3 className="text-lg font-bold bg-slate-100 p-2 mb-3 border-l-4 border-slate-800 uppercase text-sm tracking-wider">Hasil Diagnosis AI</h3>
                     <div className="border border-slate-300 p-4 rounded-lg bg-slate-50">
-                      <p className="text-sm text-slate-500 uppercase tracking-widest mb-1">Skor Kepercayaan</p>
+                      <p className="text-sm text-slate-500 uppercase tracking-widest mb-1">Skor Risiko</p>
                       <p className="text-4xl font-black mb-3">{prediction.confidence}%</p>
                       
                       <p className="text-sm text-slate-500 uppercase tracking-widest mb-1">Status</p>
@@ -1250,7 +1250,7 @@ export default function App() {
                       </div>
                       <div className="flex items-center justify-between md:justify-end gap-4 sm:gap-8 pt-4 md:pt-0 border-t md:border-none border-slate-200/50">
                          <div className="text-left md:text-right">
-                           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Skor Kepercayaan</p>
+                           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Skor Risiko</p>
                            <p className="font-black text-3xl text-slate-800">{item.confidence}%</p>
                          </div>
                          <div className="flex items-center gap-3">
