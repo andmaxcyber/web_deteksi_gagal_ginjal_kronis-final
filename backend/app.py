@@ -9,6 +9,10 @@ app = Flask(__name__)
 # CORS diaktifkan agar frontend React bisa memanggil API ini
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def health_check():
+    return "Backend Rebalytix Aktif dan Siap Menerima Prediksi!", 200
+
 # --- LOAD MODEL MACHINE LEARNING ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RF_MODEL_PATH = os.path.join(BASE_DIR, 'models', 'random_forest_model.pkl')
