@@ -343,7 +343,7 @@ export default function App() {
                     </button>
                     <button 
                       onClick={() => { setView('education'); window.scrollTo(0,0); }}
-                      className="bg-white/70 backdrop-blur-md border border-white hover:border-emerald-200 text-slate-700 h-16 px-8 rounded-2xl font-bold text-lg hover:bg-white/90 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-3 cursor-pointer w-full sm:w-auto justify-center"
+                      className="bg-white/80 backdrop-blur-md border border-white hover:border-emerald-200 text-slate-700 h-16 px-8 rounded-2xl font-bold text-lg hover:bg-white/80 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-3 cursor-pointer w-full sm:w-auto justify-center"
                     >
                       Pelajari Ginjal <BookOpen size={20} className="text-emerald-600" />
                     </button>
