@@ -394,7 +394,7 @@ export default function App() {
                   icon={Stethoscope} 
                   title="Rekomendasi Dinamis" 
                   description="Menghasilkan anjuran edukasi medis personal yang disesuaikan dengan parameter spesifik abnormal pasien."
-                  color="bg-sky-100/50 text-sky-700"
+                  color="bg-teal-100/50 text-teal-700"
                 />
               </div>
             </motion.main>
@@ -463,7 +463,7 @@ export default function App() {
                         </div>
                         <h4 className="text-3xl font-display font-black text-slate-900">Pengertian GGK</h4>
                         <p className="text-slate-600 leading-relaxed text-lg text-justify font-medium">
-                          Gagal Ginjal Kronis (GGK) atau <i>Chronic Kidney Disease (CKD)</i> adalah kondisi di mana terjadi penurunan fungsi ginjal secara progresif dan irreversible (tidak dapat pulih kembali) yang berlangsung selama lebih dari 3 bulan.
+                          Penyakit Ginjal Kronis (GGK) atau <i>Chronic Kidney Disease (CKD)</i> adalah kondisi di mana terjadi penurunan fungsi ginjal secara progresif dan irreversible (tidak dapat pulih kembali) yang berlangsung selama lebih dari 3 bulan.
                         </p>
                         <p className="text-slate-600 leading-relaxed text-lg text-justify font-medium">
                           Ginjal yang sehat bertugas menyaring limbah metabolisme, kelebihan cairan, dan racun dari dalam darah untuk dikeluarkan menjadi urine. Pada penderita GGK, unit penyaring terkecil di dalam ginjal yang disebut <b>Nefron</b> mengalami kerusakan struktural.
