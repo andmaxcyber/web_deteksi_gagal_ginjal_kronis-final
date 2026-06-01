@@ -429,52 +429,95 @@ export default function App() {
 
       <Navbar onStart={() => { setView('form'); window.scrollTo(0,0); }} view={view} setView={setView} />
 
-      <div className="flex-1">
-        <AnimatePresence mode="wait">
-          {view === 'home' && (
-            <motion.main 
-              key="home"
-              id="beranda"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="max-w-7xl mx-auto px-6 py-32 print:hidden"
+<div className="flex-1">
+  <AnimatePresence mode="wait">
+    {view === 'home' && (
+      <motion.main 
+        key="home"
+        id="beranda"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -30 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-6 py-32 print:hidden"
+      >
+        {/* HERO SECTION */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+          <div className="space-y-8 relative z-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/60 backdrop-blur-md text-teal-700 rounded-full text-xs font-black uppercase tracking-widest border border-white/80 shadow-[0_4px_15px_rgba(20,184,166,0.1)]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+              </span>
+              AI Medical Screening
+            </div>
+            <h2 className="text-5xl lg:text-[72px] font-display font-black leading-[1.05] tracking-tight text-slate-900">
+              Rebalytix AI <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-800">
+                Deteksi Gagal Ginjal
+              </span>
+            </h2>
+            <p className="text-lg text-slate-600 max-w-lg leading-relaxed font-medium">
+              Sistem prediksi canggih berbasis <b className="text-slate-800">Hybrid Ensemble Machine Learning</b> untuk mendeteksi risiko disfungsi ginjal kronis secara dini melalui 8 parameter laboratorium Anda.
+            </p>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4">
+              <button 
+                onClick={() => { setView('form'); window.scrollTo(0,0); }} 
+                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white h-16 px-10 rounded-2xl font-black text-lg shadow-[0_10px_30px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.4)] hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 cursor-pointer w-full sm:w-auto justify-center animate-gentle-pulse"
+              >
+                Mulai Prediksi
+              </button>
+              <button 
+                onClick={() => { setView('education'); window.scrollTo(0,0); }}
+                className="bg-white/80 backdrop-blur-md border border-white hover:border-emerald-200 text-slate-700 h-16 px-8 rounded-2xl font-bold text-lg hover:bg-white/80 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-3 cursor-pointer w-full sm:w-auto justify-center"
+              >
+                Pelajari Ginjal <BookOpen size={20} className="text-emerald-600" />
+              </button>
+            </div>
+          </div>
+
+          {/* Kolom kanan - Ilustrasi */}
+          <div className="relative hidden lg:flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative"
             >
-{/* HERO SECTION */}
-<div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
-  <div className="space-y-8 relative z-10">
-    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/60 backdrop-blur-md text-teal-700 rounded-full text-xs font-black uppercase tracking-widest border border-white/80 shadow-[0_4px_15px_rgba(20,184,166,0.1)]">
-      <span className="relative flex h-2 w-2">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
-      </span>
-      AI Medical Screening
-    </div>
-    <h2 className="text-5xl lg:text-[72px] font-display font-black leading-[1.05] tracking-tight text-slate-900">
-      Rebalytix AI <br />
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-800">
-        Deteksi Gagal Ginjal
-      </span>
-    </h2>
-    <p className="text-lg text-slate-600 max-w-lg leading-relaxed font-medium">
-      Sistem prediksi canggih berbasis <b className="text-slate-800">Hybrid Ensemble Machine Learning</b> untuk mendeteksi risiko disfungsi ginjal kronis secara dini melalui 8 parameter laboratorium Anda.
-    </p>
-    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4">
-      <button 
-        onClick={() => { setView('form'); window.scrollTo(0,0); }} 
-        className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white h-16 px-10 rounded-2xl font-black text-lg shadow-[0_10px_30px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.4)] hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 cursor-pointer w-full sm:w-auto justify-center animate-gentle-pulse"
-      >
-        Mulai Prediksi
-      </button>
-      <button 
-        onClick={() => { setView('education'); window.scrollTo(0,0); }}
-        className="bg-white/80 backdrop-blur-md border border-white hover:border-emerald-200 text-slate-700 h-16 px-8 rounded-2xl font-bold text-lg hover:bg-white/80 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-3 cursor-pointer w-full sm:w-auto justify-center"
-      >
-        Pelajari Ginjal <BookOpen size={20} className="text-emerald-600" />
-      </button>
-    </div>
-  </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/40 to-teal-200/40 rounded-full blur-3xl"></div>
+              <div className="relative bg-white/40 backdrop-blur-sm p-8 rounded-3xl border border-white/60 shadow-2xl">
+                <div className="w-80 h-80 bg-gradient-to-br from-emerald-100 to-teal-50 rounded-2xl flex items-center justify-center">
+                  <Activity size={120} className="text-emerald-600" />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* SEKSI QUICK FITUR */}
+        <div className="grid md:grid-cols-3 gap-8 relative z-10">
+          <FeatureCard 
+            icon={Zap} 
+            title="Prediksi Cepat" 
+            description="Hasil analisis AI dalam hitungan detik dengan akurasi tinggi"
+            color="bg-gradient-to-br from-amber-100 to-orange-50"
+          />
+          <FeatureCard 
+            icon={Shield} 
+            title="Data Aman" 
+            description="Privasi terjamin dengan enkripsi standar medis"
+            color="bg-gradient-to-br from-blue-100 to-cyan-50"
+          />
+          <FeatureCard 
+            icon={TrendingUp} 
+            title="Akurat & Terpercaya" 
+            description="Berbasis ensemble model dengan validasi klinis"
+            color="bg-gradient-to-br from-emerald-100 to-teal-50"
+          />
+        </div>
+      </motion.main>
+    )}
+  </AnimatePresence>
 </div>
                 {/* GAMBAR GINJAL */}
                 <div className="relative flex justify-center lg:justify-end items-center min-h-[450px]">
