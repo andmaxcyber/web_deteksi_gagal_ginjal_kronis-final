@@ -40,3 +40,22 @@
   animation: slideRight 1s ease-in-out infinite;
   display: inline-block;
 }
+
+@keyframes gentlePulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(16,185,129,0.3);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 15px 45px rgba(16,185,129,0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(16,185,129,0.3);
+  }
+}
+
+.animate-gentle-pulse {
+  animation: gentlePulse 2.5s ease-in-out infinite;
+}
