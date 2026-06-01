@@ -419,15 +419,15 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50/50 print:bg-white relative overflow-hidden text-slate-800 flex flex-col">
       
-      {/* GLOBAL DYNAMIC BACKGROUND (MESH & GLASS) */}
-      <div className="fixed inset-0 z-[-1] pointer-events-none print:hidden">
-        <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-emerald-400/20 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-teal-400/20 rounded-full blur-[150px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
-        <div className="absolute top-[30%] left-[50%] w-[400px] h-[400px] bg-sky-300/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMTUsMjMsNDIsMC4wMykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent_90%)]" />
-      </div>
+    {/* GLOBAL DYNAMIC BACKGROUND (MESH & GLASS) */}
+<div className="fixed inset-0 z-[-1] pointer-events-none print:hidden">
+  <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-emerald-400/20 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }} />
+  <div className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-teal-400/20 rounded-full blur-[150px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
+  <div className="absolute top-[30%] left-[50%] w-[400px] h-[400px] bg-sky-300/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
+  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMTUsMjMsNDIsMC4wMykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent_90%)]" />
+</div>
 
-      <Navbar onStart={() => { setView('form'); window.scrollTo(0,0); }} view={view} setView={setView} />
+<Navbar onStart={() => { setView('form'); window.scrollTo(0,0); }} view={view} setView={setView} />
 
 <div className="flex-1">
   <AnimatePresence mode="wait">
@@ -476,18 +476,26 @@ export default function App() {
             </div>
           </div>
 
-          {/* Kolom kanan - Ilustrasi */}
-          <div className="relative hidden lg:flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
+          {/* GAMBAR GINJAL */}
+          <div className="relative flex justify-center lg:justify-end items-center min-h-[450px]">
+            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-400/20 to-teal-300/20 rounded-[100px] rotate-12 blur-3xl -z-10" />
+            <motion.div 
+              animate={{ y: [-10, 10, -10] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="w-full max-w-md relative z-10 flex justify-center"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/40 to-teal-200/40 rounded-full blur-3xl"></div>
-              <div className="relative bg-white/40 backdrop-blur-sm p-8 rounded-3xl border border-white/60 shadow-2xl">
-                <div className="w-80 h-80 bg-gradient-to-br from-emerald-100 to-teal-50 rounded-2xl flex items-center justify-center">
-                  <Activity size={120} className="text-emerald-600" />
+              <img 
+                src="/ginjal.png" 
+                alt="Ilustrasi Ginjal Rebalytix AI" 
+                className="w-full h-auto object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.15)]"
+              />
+              <div className="absolute -bottom-6 -right-2 sm:bottom-4 sm:-right-12 bg-white/80 backdrop-blur-xl p-5 rounded-[28px] flex items-center gap-5 border border-white/60 shadow-[0_20px_40px_-10px_rgba(16,185,129,0.15)] z-20 hover:-translate-y-1 transition-transform cursor-default">
+                <div className="w-14 h-14 bg-gradient-to-br from-emerald-400 to-teal-500 text-white rounded-2xl flex items-center justify-center shadow-inner">
+                  <CheckCircle2 size={28} />
+                </div>
+                <div className="pr-2">
+                  <p className="text-[11px] uppercase font-black text-emerald-600 tracking-widest mb-0.5">Sistem Siap</p>
+                  <p className="font-bold text-slate-800 text-lg leading-tight">AI Engine Active</p>
                 </div>
               </div>
             </motion.div>
@@ -497,77 +505,28 @@ export default function App() {
         {/* SEKSI QUICK FITUR */}
         <div className="grid md:grid-cols-3 gap-8 relative z-10">
           <FeatureCard 
-            icon={Zap} 
-            title="Prediksi Cepat" 
-            description="Hasil analisis AI dalam hitungan detik dengan akurasi tinggi"
-            color="bg-gradient-to-br from-amber-100 to-orange-50"
+            icon={ClipboardList} 
+            title="Skrining Deteksi Dini" 
+            description="Mengevaluasi probabilitas gangguan fungsional saringan ginjal menggunakan kompilasi data laboratorium."
+            color="bg-emerald-100/50 text-emerald-700"
           />
           <FeatureCard 
-            icon={Shield} 
-            title="Data Aman" 
-            description="Privasi terjamin dengan enkripsi standar medis"
-            color="bg-gradient-to-br from-blue-100 to-cyan-50"
+            icon={Activity} 
+            title="8 Parameter Kunci" 
+            description="Analisis integratif terhadap bio-indikator klinis yang merepresentasikan laju filtrasi dan metabolisme."
+            color="bg-teal-100/50 text-teal-700"
           />
           <FeatureCard 
-            icon={TrendingUp} 
-            title="Akurat & Terpercaya" 
-            description="Berbasis ensemble model dengan validasi klinis"
-            color="bg-gradient-to-br from-emerald-100 to-teal-50"
+            icon={Stethoscope} 
+            title="Rekomendasi Dinamis" 
+            description="Menghasilkan anjuran edukasi medis personal yang disesuaikan dengan parameter spesifik abnormal pasien."
+            color="bg-teal-100/50 text-teal-700"
           />
         </div>
       </motion.main>
     )}
   </AnimatePresence>
 </div>
-                {/* GAMBAR GINJAL */}
-                <div className="relative flex justify-center lg:justify-end items-center min-h-[450px]">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-emerald-400/20 to-teal-300/20 rounded-[100px] rotate-12 blur-3xl -z-10" />
-                  <motion.div 
-                    animate={{ y: [-10, 10, -10] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-full max-w-md relative z-10 flex justify-center"
-                  >
-                    <img 
-                      src="/ginjal.png" 
-                      alt="Ilustrasi Ginjal Rebalytix AI" 
-                      className="w-full h-auto object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.15)]"
-                    />
-                    <div className="absolute -bottom-6 -right-2 sm:bottom-4 sm:-right-12 bg-white/80 backdrop-blur-xl p-5 rounded-[28px] flex items-center gap-5 border border-white/60 shadow-[0_20px_40px_-10px_rgba(16,185,129,0.15)] z-20 hover:-translate-y-1 transition-transform cursor-default">
-                      <div className="w-14 h-14 bg-gradient-to-br from-emerald-400 to-teal-500 text-white rounded-2xl flex items-center justify-center shadow-inner">
-                        <CheckCircle2 size={28} />
-                      </div>
-                      <div className="pr-2">
-                        <p className="text-[11px] uppercase font-black text-emerald-600 tracking-widest mb-0.5">Sistem Siap</p>
-                        <p className="font-bold text-slate-800 text-lg leading-tight">AI Engine Active</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-
-              {/* SEKSI QUICK FITUR */}
-              <div className="grid md:grid-cols-3 gap-8 relative z-10">
-                <FeatureCard 
-                  icon={ClipboardList} 
-                  title="Skrining Deteksi Dini" 
-                  description="Mengevaluasi probabilitas gangguan fungsional saringan ginjal menggunakan kompilasi data laboratorium."
-                  color="bg-emerald-100/50 text-emerald-700"
-                />
-                <FeatureCard 
-                  icon={Activity} 
-                  title="8 Parameter Kunci" 
-                  description="Analisis integratif terhadap bio-indikator klinis yang merepresentasikan laju filtrasi dan metabolisme."
-                  color="bg-teal-100/50 text-teal-700"
-                />
-                <FeatureCard 
-                  icon={Stethoscope} 
-                  title="Rekomendasi Dinamis" 
-                  description="Menghasilkan anjuran edukasi medis personal yang disesuaikan dengan parameter spesifik abnormal pasien."
-                  color="bg-teal-100/50 text-teal-700"
-                />
-              </div>
-            </motion.main>
-          )}
 
           {view === 'education' && (
             <motion.div 
