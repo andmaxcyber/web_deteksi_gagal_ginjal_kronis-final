@@ -525,7 +525,6 @@ export default function App() {
         </div>
       </motion.main>
     )}
-  </AnimatePresence>
 </div>
 
           {view === 'education' && (
