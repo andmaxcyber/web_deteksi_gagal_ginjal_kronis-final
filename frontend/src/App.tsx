@@ -50,7 +50,7 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
     setMobileOpen(false);
   };
 
-  // Lock scroll ketika menu terbuka
+  // Lock scroll when menu open
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = 'hidden';
@@ -83,7 +83,7 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500">
             <button onClick={() => navTo('home')} className={cn("hover:text-emerald-600 transition-colors", view === 'home' && "text-emerald-600")}>Beranda</button>
             <button onClick={() => navTo('history')} className={cn("hover:text-emerald-600 transition-colors", view === 'history' && "text-emerald-600")}>Riwayat</button>
-            <button onClick={() => navTo('education')} className={cn("hover:text-emerald-600 transition-colors", view === 'education' && "text-emerald-600")}>Edukasi</button>
+            <button onClick={() => navTo('education')} className={cn("hover:text-emerald-600 transition-colors", view === 'education' && "text-emerald-600")}>Edukasi Ginjal</button>
             <button onClick={() => navTo('about')} className={cn("hover:text-emerald-600 transition-colors", view === 'about' && "text-emerald-600")}>Tentang</button>
           </div>
 
@@ -100,16 +100,16 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
               </svg>
             </button>
 
-            {/* Primary action button */}
+            {/* Primary action button - Responsive */}
             <button 
               onClick={onStart}
-              className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white px-5 md:px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 cursor-pointer"
+              className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-xl font-bold transition-all flex md:flex-row flex-col items-center justify-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 cursor-pointer"
             >
-              <span className="hidden sm:inline">Mulai Prediksi</span>
-              <span className="inline sm:hidden">Mulai</span>
+              <span>Mulai</span>
               <span className="animate-slide-right inline-block">
                 <ArrowRight size={18} />
               </span>
+              <span>Prediksi</span>
             </button>
           </div>
         </div>
@@ -183,7 +183,7 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
                   : "bg-white/10 text-white hover:bg-white/20"
               )}
             >
-              Edukasi
+              Edukasi Ginjal
             </button>
             <button 
               onClick={() => navTo('about')} 
