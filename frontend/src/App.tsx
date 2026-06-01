@@ -90,7 +90,8 @@ const FeatureCard = ({ icon: Icon, title, description, color }: any) => (
     </div>
     <h3 className="font-display font-bold text-xl mb-3 text-slate-800">{title}</h3>
     <p className="text-slate-500 text-sm leading-relaxed font-medium">{description}</p>
-    
+  </div>
+);
 // Helper penentu status (Normal, Warning, Danger) untuk Frontend
 const getIndicatorStatus = (label: string, value: number) => {
   const val = Number(value);
