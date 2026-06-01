@@ -100,16 +100,15 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
               </svg>
             </button>
 
-            {/* Primary action button - Responsive */}
+            {/* Primary action button - Clean & Simple */}
             <button 
               onClick={onStart}
-              className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-xl font-bold transition-all flex md:flex-row flex-col items-center justify-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 cursor-pointer"
+              className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white px-5 md:px-6 py-2.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 cursor-pointer"
             >
-              <span>Mulai</span>
+              <span>Prediksi</span>
               <span className="animate-slide-right inline-block">
                 <ArrowRight size={18} />
               </span>
-              <span>Prediksi</span>
             </button>
           </div>
         </div>
