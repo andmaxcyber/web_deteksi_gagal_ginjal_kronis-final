@@ -25,7 +25,7 @@ import {
   AlertTriangle,
   HelpCircle
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from './lib/utils';
 
 // --- Types ---
@@ -525,7 +525,6 @@ export default function App() {
         </div>
       </motion.main>
     )}
-</div>
 
           {view === 'education' && (
             <motion.div 
