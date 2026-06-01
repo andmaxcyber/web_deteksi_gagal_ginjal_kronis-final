@@ -83,7 +83,7 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500">
             <button onClick={() => navTo('home')} className={cn("hover:text-emerald-600 transition-colors", view === 'home' && "text-emerald-600")}>Beranda</button>
             <button onClick={() => navTo('history')} className={cn("hover:text-emerald-600 transition-colors", view === 'history' && "text-emerald-600")}>Riwayat</button>
-            <button onClick={() => navTo('education')} className={cn("hover:text-emerald-600 transition-colors", view === 'education' && "text-emerald-600")}>Edukasi Ginjal</button>
+            <button onClick={() => navTo('education')} className={cn("hover:text-emerald-600 transition-colors", view === 'education' && "text-emerald-600")}>Edukasi</button>
             <button onClick={() => navTo('about')} className={cn("hover:text-emerald-600 transition-colors", view === 'about' && "text-emerald-600")}>Tentang</button>
           </div>
 
@@ -183,7 +183,7 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
                   : "bg-white/10 text-white hover:bg-white/20"
               )}
             >
-              Edukasi Ginjal
+              Edukasi
             </button>
             <button 
               onClick={() => navTo('about')} 
