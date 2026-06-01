@@ -50,73 +50,161 @@ const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string,
     setMobileOpen(false);
   };
 
+  // Lock scroll ketika menu terbuka
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileOpen]);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-xl border-b border-white/50 shadow-sm print:hidden transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navTo('home')}>
-          {/* Logo Rebalytix */}
-          <img 
-            src="/favicon.png" 
-            alt="Logo Rebalytix" 
-            className="w-11 h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" 
-          />
-          <div>
-            <h1 className="font-display font-black text-xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 to-teal-600">Rebalytix AI</h1>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">Med-Tech Skrining</p>
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-xl border-b border-white/50 shadow-sm print:hidden transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navTo('home')}>
+            {/* Logo Rebalytix */}
+            <img 
+              src="/favicon.png" 
+              alt="Logo Rebalytix" 
+              className="w-10 h-10 md:w-11 md:h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" 
+            />
+            <div>
+              <h1 className="font-display font-black text-lg md:text-xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 to-teal-600">Rebalytix AI</h1>
+              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">Med-Tech Skrining</p>
+            </div>
+          </div>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500">
+            <button onClick={() => navTo('home')} className={cn("hover:text-emerald-600 transition-colors", view === 'home' && "text-emerald-600")}>Beranda</button>
+            <button onClick={() => navTo('history')} className={cn("hover:text-emerald-600 transition-colors", view === 'history' && "text-emerald-600")}>Riwayat</button>
+            <button onClick={() => navTo('education')} className={cn("hover:text-emerald-600 transition-colors", view === 'education' && "text-emerald-600")}>Edukasi Ginjal</button>
+            <button onClick={() => navTo('about')} className={cn("hover:text-emerald-600 transition-colors", view === 'about' && "text-emerald-600")}>Tentang</button>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {/* Mobile hamburger */}
+            <button
+              type="button"
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none transition-colors"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+
+            {/* Primary action button */}
+            <button 
+              onClick={onStart}
+              className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white px-5 md:px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 cursor-pointer"
+            >
+              <span className="hidden sm:inline">Mulai Prediksi</span>
+              <span className="inline sm:hidden">Mulai</span>
+              <span className="animate-slide-right inline-block">
+                <ArrowRight size={18} />
+              </span>
+            </button>
           </div>
         </div>
+      </nav>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500">
-          <button onClick={() => navTo('home')} className={cn("hover:text-emerald-600 transition-colors", view === 'home' && "text-emerald-600")}>Beranda</button>
-          <button onClick={() => navTo('history')} className={cn("hover:text-emerald-600 transition-colors", view === 'history' && "text-emerald-600")}>Riwayat</button>
-          <button onClick={() => navTo('education')} className={cn("hover:text-emerald-600 transition-colors", view === 'education' && "text-emerald-600")}>Edukasi Ginjal</button>
-          <button onClick={() => navTo('about')} className={cn("hover:text-emerald-600 transition-colors", view === 'about' && "text-emerald-600")}>Tentang</button>
-        </div>
-
-        <div className="flex items-center gap-4">
-          {/* Mobile hamburger */}
+      {/* Fullscreen Overlay Menu */}
+      <div 
+        className={cn(
+          "fixed inset-0 z-[100] transition-all duration-300 md:hidden",
+          mobileOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        )}
+      >
+        {/* Backdrop */}
+        <div 
+          className="absolute inset-0 bg-slate-900/95 backdrop-blur-md"
+          onClick={() => setMobileOpen(false)}
+        />
+        
+        {/* Menu Content */}
+        <div className="relative h-full flex flex-col items-center justify-center p-8">
+          {/* Close Button */}
           <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:bg-slate-100 focus:outline-none"
-            onClick={() => setMobileOpen(v => !v)}
-            aria-expanded={mobileOpen}
-            aria-label="Toggle menu"
+            onClick={() => setMobileOpen(false)}
+            className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
+            aria-label="Close menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {mobileOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
-          {/* Primary action button */}
-          <button 
-            onClick={onStart}
-            className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 cursor-pointer"
-          >
-            Mulai Prediksi 
-            <span className="animate-slide-right inline-block">
-              <ArrowRight size={18} />
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile menu panel */}
-      <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${mobileOpen ? 'max-h-[320px]' : 'max-h-0'}`}>
-        <div className="px-6 pb-6">
-          <div className="flex flex-col gap-3 mt-4 bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-white/60 shadow-sm">
-            <button onClick={() => navTo('home')} className={cn("text-left py-2 px-3 rounded-md hover:bg-slate-50 transition-colors", view === 'home' && "text-emerald-600 font-semibold")}>Beranda</button>
-            <button onClick={() => navTo('history')} className={cn("text-left py-2 px-3 rounded-md hover:bg-slate-50 transition-colors", view === 'history' && "text-emerald-600 font-semibold")}>Riwayat</button>
-            <button onClick={() => navTo('education')} className={cn("text-left py-2 px-3 rounded-md hover:bg-slate-50 transition-colors", view === 'education' && "text-emerald-600 font-semibold")}>Edukasi Ginjal</button>
-            <button onClick={() => navTo('about')} className={cn("text-left py-2 px-3 rounded-md hover:bg-slate-50 transition-colors", view === 'about' && "text-emerald-600 font-semibold")}>Tentang</button>
+          {/* Logo */}
+          <div className="flex items-center gap-3 mb-12">
+            <img src="/favicon.png" alt="Logo Rebalytix" className="w-12 h-12 object-contain drop-shadow-lg" />
+            <div>
+              <h2 className="font-display font-black text-2xl text-white">Rebalytix AI</h2>
+              <p className="text-xs text-emerald-300 uppercase tracking-widest font-bold">Med-Tech Skrining</p>
+            </div>
           </div>
+
+          {/* Menu Items */}
+          <nav className="flex flex-col items-center gap-6 w-full max-w-xs">
+            <button 
+              onClick={() => navTo('home')} 
+              className={cn(
+                "w-full text-center py-4 px-6 rounded-2xl text-lg font-bold transition-all",
+                view === 'home' 
+                  ? "bg-emerald-600 text-white shadow-[0_0_30px_rgba(16,185,129,0.5)]" 
+                  : "bg-white/10 text-white hover:bg-white/20"
+              )}
+            >
+              Beranda
+            </button>
+            <button 
+              onClick={() => navTo('history')} 
+              className={cn(
+                "w-full text-center py-4 px-6 rounded-2xl text-lg font-bold transition-all",
+                view === 'history' 
+                  ? "bg-emerald-600 text-white shadow-[0_0_30px_rgba(16,185,129,0.5)]" 
+                  : "bg-white/10 text-white hover:bg-white/20"
+              )}
+            >
+              Riwayat
+            </button>
+            <button 
+              onClick={() => navTo('education')} 
+              className={cn(
+                "w-full text-center py-4 px-6 rounded-2xl text-lg font-bold transition-all",
+                view === 'education' 
+                  ? "bg-emerald-600 text-white shadow-[0_0_30px_rgba(16,185,129,0.5)]" 
+                  : "bg-white/10 text-white hover:bg-white/20"
+              )}
+            >
+              Edukasi Ginjal
+            </button>
+            <button 
+              onClick={() => navTo('about')} 
+              className={cn(
+                "w-full text-center py-4 px-6 rounded-2xl text-lg font-bold transition-all",
+                view === 'about' 
+                  ? "bg-emerald-600 text-white shadow-[0_0_30px_rgba(16,185,129,0.5)]" 
+                  : "bg-white/10 text-white hover:bg-white/20"
+              )}
+            >
+              Tentang
+            </button>
+          </nav>
+
+          {/* Footer Text */}
+          <p className="mt-12 text-sm text-slate-400 text-center">
+            Sistem Deteksi Gagal Ginjal Kronis<br/>Berbasis AI Machine Learning
+          </p>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 
