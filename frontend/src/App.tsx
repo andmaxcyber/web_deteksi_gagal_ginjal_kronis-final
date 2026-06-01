@@ -42,44 +42,81 @@ interface PredictionData {
 
 // --- Components ---
 const Navbar = ({ onStart, view, setView }: { onStart: () => void, view: string, setView: (v: 'home' | 'form' | 'result' | 'history' | 'education' | 'about') => void }) => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   const navTo = (targetView: 'home' | 'history' | 'education' | 'about') => {
     setView(targetView);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setMobileOpen(false);
   };
+
   return (
-  <nav className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-xl border-b border-white/50 shadow-sm print:hidden transition-all duration-300">
-    <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-      <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navTo('home')}>
-        {/* Logo Rebalytix */}
-        <img 
-          src="/favicon.png" 
-          alt="Logo Rebalytix" 
-          className="w-11 h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" 
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-xl border-b border-white/50 shadow-sm print:hidden transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navTo('home')}>
+          {/* Logo Rebalytix */}
+          <img 
+            src="/favicon.png" 
+            alt="Logo Rebalytix" 
+            className="w-11 h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300" 
           />
-        <div>
-          <h1 className="font-display font-black text-xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 to-teal-600">Rebalytix AI</h1>
-          <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">Med-Tech Skrining</p>
+          <div>
+            <h1 className="font-display font-black text-xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 to-teal-600">Rebalytix AI</h1>
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">Med-Tech Skrining</p>
+          </div>
+        </div>
+
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500">
+          <button onClick={() => navTo('home')} className={cn("hover:text-emerald-600 transition-colors", view === 'home' && "text-emerald-600")}>Beranda</button>
+          <button onClick={() => navTo('history')} className={cn("hover:text-emerald-600 transition-colors", view === 'history' && "text-emerald-600")}>Riwayat</button>
+          <button onClick={() => navTo('education')} className={cn("hover:text-emerald-600 transition-colors", view === 'education' && "text-emerald-600")}>Edukasi Ginjal</button>
+          <button onClick={() => navTo('about')} className={cn("hover:text-emerald-600 transition-colors", view === 'about' && "text-emerald-600")}>Tentang</button>
+        </div>
+
+        <div className="flex items-center gap-4">
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:bg-slate-100 focus:outline-none"
+            onClick={() => setMobileOpen(v => !v)}
+            aria-expanded={mobileOpen}
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+
+          {/* Primary action button */}
+          <button 
+            onClick={onStart}
+            className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 cursor-pointer"
+          >
+            Mulai Prediksi 
+            <span className="animate-slide-right inline-block">
+              <ArrowRight size={18} />
+            </span>
+          </button>
         </div>
       </div>
-      <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500">
-        <button onClick={() => navTo('home')} className={cn("hover:text-emerald-600 transition-colors", view === 'home' && "text-emerald-600")}>Beranda</button>
-        <button onClick={() => navTo('history')} className={cn("hover:text-emerald-600 transition-colors", view === 'history' && "text-emerald-600")}>Riwayat</button>
-        <button onClick={() => navTo('education')} className={cn("hover:text-emerald-600 transition-colors", view === 'education' && "text-emerald-600")}>Edukasi Ginjal</button>
-        <button onClick={() => navTo('about')} className={cn("hover:text-emerald-600 transition-colors", view === 'about' && "text-emerald-600")}>Tentang</button>
+
+      {/* Mobile menu panel */}
+      <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${mobileOpen ? 'max-h-[320px]' : 'max-h-0'}`}>
+        <div className="px-6 pb-6">
+          <div className="flex flex-col gap-3 mt-4 bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-white/60 shadow-sm">
+            <button onClick={() => navTo('home')} className={cn("text-left py-2 px-3 rounded-md hover:bg-slate-50 transition-colors", view === 'home' && "text-emerald-600 font-semibold")}>Beranda</button>
+            <button onClick={() => navTo('history')} className={cn("text-left py-2 px-3 rounded-md hover:bg-slate-50 transition-colors", view === 'history' && "text-emerald-600 font-semibold")}>Riwayat</button>
+            <button onClick={() => navTo('education')} className={cn("text-left py-2 px-3 rounded-md hover:bg-slate-50 transition-colors", view === 'education' && "text-emerald-600 font-semibold")}>Edukasi Ginjal</button>
+            <button onClick={() => navTo('about')} className={cn("text-left py-2 px-3 rounded-md hover:bg-slate-50 transition-colors", view === 'about' && "text-emerald-600 font-semibold")}>Tentang</button>
+          </div>
+        </div>
       </div>
-      <div className="flex items-center gap-4">
-        <button 
-          onClick={onStart}
-          className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 cursor-pointer"
-        >
-          Mulai Prediksi 
-          <span className="inline-block animate-[slideRight_1s_ease-in-out_infinite]">
-            <ArrowRight size={18} />
-          </span>
-        </button>
-      </div>
-    </div>
-  </nav>
+    </nav>
   );
 };
 
@@ -92,6 +129,7 @@ const FeatureCard = ({ icon: Icon, title, description, color }: any) => (
     <p className="text-slate-500 text-sm leading-relaxed font-medium">{description}</p>
   </div>
 );
+
 // Helper penentu status (Normal, Warning, Danger) untuk Frontend
 const getIndicatorStatus = (label: string, value: number) => {
   const val = Number(value);
